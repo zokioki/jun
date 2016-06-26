@@ -1,3 +1,4 @@
+require "support/inflector"
 require "connection_adapters/sqlite_adapter"
 
 module ActiveRecord

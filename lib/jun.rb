@@ -1,5 +1,4 @@
-Dir["jun/**/*.rb"].each { |file| require file }
+require "jun/active_record"
 
 module Jun
-
 end
