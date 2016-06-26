@@ -1,5 +1,5 @@
-require "support/inflector"
-require "connection_adapters/sqlite_adapter"
+require_relative "support/inflector"
+require_relative "connection_adapters/sqlite_adapter"
 
 module ActiveRecord
   class Base
