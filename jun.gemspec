@@ -1,27 +1,33 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jun/version'
+# frozen_string_literal: true
+
+require_relative "lib/jun/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "jun"
-  spec.version       = Jun::VERSION
-  spec.authors       = ["Zoran"]
-  spec.email         = ["zoran1991@gmail.com"]
+  spec.name = "jun"
+  spec.version = Jun::VERSION
+  spec.authors = ["Zoran"]
+  spec.email = ["zspesic@gmail.com"]
 
-  spec.summary       = %q{A simple Ruby web framework.}
-  spec.description   = %q{A simple web framework inspired by Rails, built with the hopes of learning more about Rails internals in the process.}
-  spec.homepage      = "https://github.com/zokioki/jun"
-  spec.license       = "MIT"
+  spec.summary = "A simple Ruby web framework."
+  spec.description = "A simple web framework inspired by Rails."
+  spec.homepage = "https://github.com/zokioki/jun"
+  spec.license = "MIT"
+  spec.required_ruby_version = ">= 2.6.0"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject do |f|
+      (f == __FILE__) || f.match(%r{\A(?:(?:test|spec|features)/|\.(?:git|travis|circleci)|appveyor)})
+    end
+  end
+
+  spec.bindir = "exe"
+  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "rack"
-  
-  spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_runtime_dependency "sqlite3"
+
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "rubocop", "~> 1.21"
 end
