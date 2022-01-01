@@ -4,7 +4,7 @@ require "sqlite3"
 
 class SqliteAdapter
   def initialize
-    @db = SQLite3::Database.new("#{Dir.pwd}/db/app.db", results_as_hash: true)
+    @db = SQLite3::Database.new(Jun.root.join("db/app.db").to_s, results_as_hash: true)
   end
 
   def execute(sql)

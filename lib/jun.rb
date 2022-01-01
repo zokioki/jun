@@ -4,6 +4,12 @@ require_relative "jun/version"
 require_relative "jun/active_record"
 
 module Jun
+  ROOT = Dir.pwd
+
+  def self.root
+    Pathname.new(ROOT)
+  end
+
   class Application
     def call(env)
       [
