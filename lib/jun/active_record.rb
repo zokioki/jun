@@ -5,14 +5,12 @@ require_relative "connection_adapters/sqlite_adapter"
 
 module ActiveRecord
   class Base
-    @@connection = SqliteAdapter.new
-
     def initialize(attributes = {})
       @attributes = attributes
     end
 
     def method_missing(name, *args)
-      if @@connection.columns(self.class.table_name).include?(name)
+      if self.class.connection.columns(self.class.table_name).include?(name)
         @attributes[name]
       else
         super
@@ -28,13 +26,17 @@ module ActiveRecord
     end
 
     def self.find_by_sql(sql)
-      @@connection.execute(sql).map do |attributes|
+      connection.execute(sql).map do |attributes|
         new(attributes)
       end
     end
 
     def self.table_name
       name.downcase.pluralize
+    end
+
+    def self.connection
+      @@connection ||= SqliteAdapter.new
     end
   end
 end

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+require "sqlite3"
+
 class SqliteAdapter
   def initialize
-    require "sqlite3"
-    @db = SQLite3::Database.new(File.dirname(__FILE__) + "/../db/app.db", results_as_hash: true)
+    @db = SQLite3::Database.new("#{Dir.pwd}/db/app.db", results_as_hash: true)
   end
 
   def execute(sql)
