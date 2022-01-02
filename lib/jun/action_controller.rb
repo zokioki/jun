@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "erubis"
+require "json"
 
 module Jun
   module ActionController
@@ -52,6 +53,10 @@ module Jun
         elsif options[:text]
           response.write(options[:text])
           response.content_type ||= "text/plain"
+        elsif options[:json]
+          json = options[:json].is_a?(String) ? options[:json] : JSON.generate(options[:json])
+          response.write(json)
+          response.content_type ||= "application/json"
         elsif options[:nothing]
           response.write("")
           response.content_type ||= "text/plain"
