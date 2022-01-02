@@ -11,12 +11,22 @@ module Jun
         @env = env
       end
 
-      def render(view_name, locals = {})
+      def render(view_name, locals: nil)
         filepath = views_path.join("#{view_name}.html.erb")
         template = File.read(filepath)
         eruby = Erubis::Eruby.new(template)
 
-        eruby.result(locals.merge(_env: env))
+        if locals
+          eruby.result(locals.merge(env: env))
+        else
+          vars_for_view = {}
+
+          instance_variables.each do |var_name|
+            vars_for_view[var_name[1..-1]] = instance_variable_get(var_name)
+          end
+
+          eruby.evaluate(vars_for_view)
+        end
       end
 
       private
