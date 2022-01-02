@@ -52,6 +52,9 @@ module Jun
         elsif options[:text]
           response.write(options[:text])
           response.content_type ||= "text/plain"
+        elsif options[:nothing]
+          response.write("")
+          response.content_type ||= "text/plain"
         end
 
         @_response_rendered = true
