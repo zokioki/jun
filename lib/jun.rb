@@ -23,7 +23,7 @@ module Jun
       action = router.controller_action
       response = controller.handle_response(action)
 
-      [response.status, response.headers, [response.body].flatten]
+      response.finish
     end
   end
 end
