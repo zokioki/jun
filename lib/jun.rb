@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "pathname"
+
 require_relative "jun/version"
 require_relative "jun/support/inflector"
 require_relative "jun/support/dependencies"
