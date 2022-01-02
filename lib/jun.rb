@@ -21,13 +21,9 @@ module Jun
       router = Jun::Router.new(env)
       controller = router.controller_class.new(env)
       action = router.controller_action
-      response = controller.public_send(action)
+      response = controller.handle_response(action)
 
-      [
-        200,
-        { "Content-Type" => "text/html" },
-        [response]
-      ]
+      [response.status, response.headers, [response.body].flatten]
     end
   end
 end
