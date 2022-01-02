@@ -3,8 +3,8 @@
 require "pathname"
 
 require_relative "jun/version"
-require_relative "jun/support/inflector"
-require_relative "jun/support/dependencies"
+require_relative "jun/active_support/inflector"
+require_relative "jun/active_support/dependencies"
 require_relative "jun/active_record"
 require_relative "jun/action_controller"
 require_relative "jun/router"
