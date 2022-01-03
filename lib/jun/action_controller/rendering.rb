@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-require "erubis"
+require "erubi"
 require "json"
 
 module Jun
   module ActionController
+    class ViewContext; end
+
     module Rendering
       def render(options, extra_options = {})
         return if response_rendered?
@@ -28,19 +30,14 @@ module Jun
         if template_name
           filepath = views_path.join("#{template_name}.html.erb")
           template = File.read(filepath)
-          eruby = Erubis::Eruby.new(template)
+          erubi = Erubi::Engine.new(template)
+          context = Jun::ActionController::ViewContext.new
 
-          body = if options[:locals]
-                   eruby.result(options[:locals].merge(env: env))
-                 else
-                   vars_for_view = {}
+          instance_variables.each do |var_name|
+            context.instance_variable_set(var_name, instance_variable_get(var_name))
+          end
 
-                   instance_variables.each do |var_name|
-                     vars_for_view[var_name[1..-1]] = instance_variable_get(var_name)
-                   end
-
-                   eruby.evaluate(vars_for_view)
-                 end
+          body = context.instance_eval(erubi.src)
 
           response.write(body)
           response.content_type ||= "text/html"

@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "rack"
-  spec.add_runtime_dependency "erubis"
+  spec.add_runtime_dependency "erubi"
   spec.add_runtime_dependency "sqlite3"
 
   spec.add_development_dependency "rake", "~> 13.0"
