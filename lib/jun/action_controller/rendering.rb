@@ -19,6 +19,8 @@ module Jun
           template_name = options[:template]
         end
 
+        options[:layout] = true unless options.key?(:layout)
+
         if content_type = options[:content_type]
           response.content_type = content_type.to_s
         end
@@ -37,6 +39,14 @@ module Jun
           end
 
           body = template.render(context, options[:locals])
+
+          if options[:layout]
+            layout_name = options[:layout].is_a?(String) ? options[:layout] : "application"
+            layout_filepath = layouts_path.join("#{layout_name}.html.erb")
+            layout_template = Tilt::ERBTemplate.new(layout_filepath)
+
+            body = layout_template.render { body }
+          end
 
           response.write(body)
           response.content_type ||= "text/html"
@@ -64,6 +74,10 @@ module Jun
       def views_path
         dirname = self.class.name.sub(/Controller\z/, "").underscore
         Jun.root.join("app/views/#{dirname}")
+      end
+
+      def layouts_path
+        Jun.root.join("app/views/layouts")
       end
     end
   end
