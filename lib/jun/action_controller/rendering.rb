@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "erubi"
+require "tilt/erb"
 require "json"
 
 module Jun
@@ -29,15 +29,14 @@ module Jun
 
         if template_name
           filepath = views_path.join("#{template_name}.html.erb")
-          template = File.read(filepath)
-          erubi = Erubi::Engine.new(template)
+          template = Tilt::ERBTemplate.new(filepath)
           context = Jun::ActionController::ViewContext.new
 
           instance_variables.each do |var_name|
             context.instance_variable_set(var_name, instance_variable_get(var_name))
           end
 
-          body = context.instance_eval(erubi.src)
+          body = template.render(context, options[:locals])
 
           response.write(body)
           response.content_type ||= "text/html"
