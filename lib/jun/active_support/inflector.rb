@@ -104,6 +104,12 @@ module Inflector
     downcase
   end
 
+  def camelize
+    sub(/^[a-z\d]*/) { |match| match.capitalize }.
+    gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{$2.capitalize}" }.
+    gsub("/", "::")
+  end
+
   module ClassMethods
   end
 end

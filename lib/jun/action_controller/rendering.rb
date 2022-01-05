@@ -3,10 +3,10 @@
 require "tilt/erb"
 require "json"
 
+require_relative "../action_view/base"
+
 module Jun
   module ActionController
-    class ViewContext; end
-
     module Rendering
       def render(options, extra_options = {})
         return if response_rendered?
@@ -32,12 +32,7 @@ module Jun
         if template_name
           filepath = views_path.join("#{template_name}.html.erb")
           template = Tilt::ERBTemplate.new(filepath)
-          context = Jun::ActionController::ViewContext.new
-
-          instance_variables.each do |var_name|
-            context.instance_variable_set(var_name, instance_variable_get(var_name))
-          end
-
+          context = Jun::ActionView::Base.new(self)
           body = template.render(context, options[:locals])
 
           if options[:layout]
@@ -63,6 +58,15 @@ module Jun
         end
 
         @_response_rendered = true
+      end
+
+      def view_assigns
+        reserved_variables = %i[@request @response @_response_rendered]
+        variables = instance_variables - reserved_variables
+
+        variables.reduce({}) do |object, name|
+          object.merge(name[1..-1] => instance_variable_get(name))
+        end
       end
 
       private
