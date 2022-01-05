@@ -45,7 +45,7 @@ module Jun
             layout_filepath = layouts_path.join("#{layout_name}.html.erb")
             layout_template = Tilt::ERBTemplate.new(layout_filepath)
 
-            body = layout_template.render { body }
+            body = layout_template.render(context) { body }
           end
 
           response.write(body)
