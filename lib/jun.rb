@@ -13,7 +13,15 @@ require_relative "jun/router"
 module Jun
   ROOT = Dir.pwd
 
-  def self.root
-    Pathname.new(ROOT)
+  class << self
+    attr_accessor :app_class
+
+    def application
+      @application ||= app_class&.new
+    end
+
+    def root
+      Pathname.new(ROOT)
+    end
   end
 end
