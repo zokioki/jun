@@ -15,5 +15,9 @@ module Jun
 
       response.finish
     end
+
+    def routes
+      @routes ||= Jun::ActionDispatch::Routing::RouteSet.new
+    end
   end
 end
