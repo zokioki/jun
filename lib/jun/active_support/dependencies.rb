@@ -23,6 +23,8 @@ end
 class Object
   def self.const_missing(constant_name)
     file = Jun::ActiveSupport::Dependencies.find_file(constant_name.to_s.underscore)
+    super if file.nil?
+
     require file.sub(/\.rb\z/, "")
     Object.const_get(constant_name)
   end
