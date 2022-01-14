@@ -10,15 +10,38 @@ module Jun
           request.request_method == method && path_regex.match?(request.path_info)
         end
 
+        def dispatch(request)
+          controller = controller_class.new
+          controller.request = request
+          controller.response = Rack::Response.new
+          controller.handle_response(action)
+          controller.response.finish
+        end
+
+        def controller_class
+          class_name = "#{controller.camelize}Controller"
+          Object.const_get(class_name)
+        end
+
         def path_regex
           path_string_for_regex = path.gsub(/:\w+/) { |match| "(?<#{match.delete(":")}>\\w+)" }
-          Regexp.new(path_string_for_regex)
+          Regexp.new("^#{path_string_for_regex}$")
         end
       end
 
       class RouteSet
         def initialize
           @routes = []
+        end
+
+        def call(env)
+          request = Rack::Request.new(env)
+
+          if route = find_route(request)
+            route.dispatch(request)
+          else
+            [404, { "Content-Type" => "text/plain" }, ["Not found"]]
+          end
         end
 
         def add_route(*args)

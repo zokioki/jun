@@ -8,12 +8,7 @@ module Jun
     end
 
     def call(env)
-      router = Jun::Router.new(env)
-      controller = router.controller_class.new(env)
-      action = router.controller_action
-      response = controller.handle_response(action)
-
-      response.finish
+      Jun.application.routes.call(env)
     end
 
     def routes

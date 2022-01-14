@@ -9,7 +9,6 @@ require_relative "jun/action_dispatch/routing/route_set"
 require_relative "jun/active_record"
 require_relative "jun/action_controller/base"
 require_relative "jun/application"
-require_relative "jun/router"
 
 module Jun
   ROOT = Dir.pwd

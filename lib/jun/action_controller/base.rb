@@ -7,19 +7,7 @@ module Jun
     class Base
       include Jun::ActionController::Rendering
 
-      attr_reader :env
-
-      def initialize(env)
-        @env = env
-      end
-
-      def request
-        @request ||= Rack::Request.new(env)
-      end
-
-      def response
-        @response ||= Rack::Response.new
-      end
+      attr_accessor :request, :response
 
       def handle_response(action)
         public_send(action)
