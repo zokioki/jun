@@ -10,7 +10,9 @@ module Jun
 
         def get(path, to:, as: nil)
           controller, action = to.split("#")
-          @route_set.add_route("GET", path.to_s, controller, action, as)
+          path = path.to_s.start_with?("/") ? path.to_s : "/#{path}"
+
+          @route_set.add_route("GET", path, controller, action, as)
         end
 
         def root(to:)
