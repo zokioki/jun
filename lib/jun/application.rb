@@ -8,7 +8,7 @@ module Jun
     end
 
     def call(env)
-      Jun.application.routes.call(env)
+      routes.call(env)
     end
 
     def routes
