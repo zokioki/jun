@@ -11,8 +11,6 @@ require_relative "jun/action_controller/base"
 require_relative "jun/application"
 
 module Jun
-  ROOT = Dir.pwd
-
   class << self
     attr_accessor :app_class
 
@@ -21,7 +19,24 @@ module Jun
     end
 
     def root
-      Pathname.new(ROOT)
+      project_root_path
+    end
+
+    private
+
+    def project_root_path
+      current_dir = Dir.pwd
+      root_file = "config.ru"
+
+      while current_dir && File.directory?(current_dir) && !File.exist?("#{current_dir}/#{root_file}")
+        parent_dir = File.dirname(current_dir)
+        current_dir = parent_dir != current_dir && parent_dir
+      end
+
+      root_dir = current_dir if File.exist?("#{current_dir}/#{root_file}")
+      return if root_dir.nil?
+
+      Pathname.new(File.realpath(root_dir))
     end
   end
 end
