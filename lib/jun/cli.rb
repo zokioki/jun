@@ -1,48 +1,24 @@
 # frozen_string_literal: true
 
+Dir.glob(File.join("./lib/jun/cli/commands", "**", "*.rb"), &method(:require))
+
 module Jun
   module CLI
     class << self
-      COMMAND_MAP = {
-        "new" => :create_new_app,
-        "db:create" => :create_database,
-        "db:migrate" => :run_migrations,
-        "db:drop" => :drop_database,
-        "version" => :version_label
-      }.freeze
+      COMMAND_KLASSES = [
+        Jun::CLI::Commands::New,
+        Jun::CLI::Commands::DB::Create,
+        Jun::CLI::Commands::DB::Migrate,
+        Jun::CLI::Commands::DB::Drop,
+        Jun::CLI::Commands::Version
+      ].freeze
 
       def process_command(argv)
-        arg = argv.first
-        command = COMMAND_MAP[arg]
-        return if command.nil?
+        command_name = argv.shift
+        command_klass = COMMAND_KLASSES.find { |klass| klass.command_name == command_name }
+        abort("Command \"#{command_name}\" not found.") if command_klass.nil?
 
-        send(command)
-      end
-
-      private
-
-      def version_label
-        puts "Jun #{Jun::VERSION}"
-      end
-
-      def create_new_app
-        if Jun.root
-          puts "Already in a Jun app..."
-        else
-          puts "Creating new app..."
-        end
-      end
-
-      def create_database
-        puts "Creating db..."
-      end
-
-      def run_migrations
-        puts "Running migrations..."
-      end
-
-      def drop_database
-        puts "Dropping database..."
+        command_klass.new.process(*argv)
       end
     end
   end
