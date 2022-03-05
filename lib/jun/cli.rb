@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-Dir.glob(File.join("./lib/jun/cli/commands", "**", "*.rb"), &method(:require))
+Dir[File.expand_path("cli/commands/**/*.rb", __dir__)].each do |filepath|
+  require_relative filepath
+end
 
 module Jun
   module CLI
