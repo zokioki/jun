@@ -27,6 +27,7 @@ module Jun
             "app/controllers/application_controller.rb",
             "app/helpers/application_helper.rb",
             "app/views/layouts/application.html.erb",
+            "bin/console",
             "config/application.rb",
             "config/routes.rb",
             "db/app.db"
@@ -46,6 +47,8 @@ module Jun
               File.open(filepath, "w") { |f| f.write(file_body) }
               puts "created #{filepath}"
             end
+
+            FileUtils.chmod("u+x", "bin/console")
 
             puts "Installing dependencies..."
             Bundler.with_original_env { system("bundle install") }
