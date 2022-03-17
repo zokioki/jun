@@ -2,6 +2,21 @@
 
 module ActiveRecord
   class Migration
+    def add_column(table_name, column_name, column_type, options = {})
+      sql = ["ALTER TABLE #{table_name} ADD COLUMN #{column_name}"]
+
+      sql << column_type.to_s.upcase
+      sql << "NOT NULL" if options[:null] == false
+      sql << "DEFAULT #{options[:default]}" if options[:default]
+      sql << "UNIQUE" if options[:unique] == true
+
+      execute(sql.join(" "))
+    end
+
+    def remove_column(table_name, column_name)
+      execute("ALTER TABLE #{table_name} DROP COLUMN #{column_name};")
+    end
+
     def create_table(table_name, options = {})
       sql = "CREATE TABLE IF NOT EXISTS #{table_name}"
       column_options = options[:columns] || []
