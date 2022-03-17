@@ -24,11 +24,15 @@ module ActiveRecord
       sql += " (#{columns_sql.join(", ")})"
       sql += ";"
 
-      ActiveRecord::Base.connection.execute(sql)
+      execute(sql)
     end
 
     def drop_table(table_name)
-      ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS #{table_name};")
+      execute("DROP TABLE IF EXISTS #{table_name};")
+    end
+
+    def execute(*args)
+      ActiveRecord::Base.connection.execute(*args)
     end
   end
 end
