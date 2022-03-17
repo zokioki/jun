@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "connection_adapters/sqlite_adapter"
+require_relative "../connection_adapters/sqlite_adapter"
 
 module ActiveRecord
   class Base
