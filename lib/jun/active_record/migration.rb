@@ -2,6 +2,14 @@
 
 module ActiveRecord
   class Migration
+    def up
+      raise NoMethodError, "Subclass must implement method."
+    end
+
+    def down
+      raise NoMethodError, "Subclass must implement method."
+    end
+
     def add_column(table_name, column_name, column_type, options = {})
       sql = ["ALTER TABLE #{table_name} ADD COLUMN #{column_name}"]
 
