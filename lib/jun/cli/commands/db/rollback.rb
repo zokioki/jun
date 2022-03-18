@@ -4,9 +4,9 @@ module Jun
   module CLI
     module Commands
       module DB
-        class Migrate < Base
+        class Rollback < Base
           def process(*args)
-            ActiveRecord::Migrator.new(direction: :up).call
+            ActiveRecord::Migrator.new(direction: :down).call
           end
         end
       end

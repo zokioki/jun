@@ -12,8 +12,21 @@ module Jun
               puts "Database already exists."
             else
               File.open(db_filepath, "w") {}
+              create_schema_migrations_table
               puts "Created database in #{db_filepath}."
             end
+          end
+
+          private
+
+          def create_schema_migrations_table
+            ActiveRecord::Base.connection.execute(
+              <<~SQL
+                CREATE TABLE IF NOT EXISTS schema_migrations (
+                  version text NOT NULL PRIMARY KEY
+                );"
+              SQL
+            )
           end
         end
       end

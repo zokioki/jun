@@ -8,6 +8,7 @@ require_relative "jun/active_support/dependencies"
 require_relative "jun/action_dispatch/routing/route_set"
 require_relative "jun/active_record/base"
 require_relative "jun/active_record/migration"
+require_relative "jun/active_record/migrator"
 require_relative "jun/action_controller/base"
 require_relative "jun/application"
 

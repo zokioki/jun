@@ -11,6 +11,7 @@ module Jun
         Jun::CLI::Commands::New,
         Jun::CLI::Commands::DB::Create,
         Jun::CLI::Commands::DB::Migrate,
+        Jun::CLI::Commands::DB::Rollback,
         Jun::CLI::Commands::DB::Drop,
         Jun::CLI::Commands::Generate::Migration,
         Jun::CLI::Commands::Server,
