@@ -37,7 +37,7 @@ module Jun
 
           FileUtils.chdir(app_name) do
             templates.each do |filepath|
-              template_filepath = File.expand_path("../generators/new/#{filepath}.erb", __dir__)
+              template_filepath = File.expand_path("../generator_templates/new_app/#{filepath}.erb", __dir__)
               template = Tilt::ERBTemplate.new(template_filepath)
               template_locals = { app_name: app_name }
               file_body = template.render(nil, template_locals)
