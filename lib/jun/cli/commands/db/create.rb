@@ -6,7 +6,14 @@ module Jun
       module DB
         class Create < Base
           def process(*args)
-            puts "Creating database..."
+            db_filepath = Jun.root.join("db/app.db")
+
+            if File.exist?(db_filepath)
+              puts "Database already exists."
+            else
+              File.open(db_filepath, "w") {}
+              puts "Created database in #{db_filepath}."
+            end
           end
         end
       end

@@ -6,7 +6,10 @@ module Jun
       module DB
         class Drop < Base
           def process(*args)
-            puts "Dropping database..."
+            db_filepath = Jun.root.join("db/app.db")
+
+            File.delete(db_filepath) if File.exist?(db_filepath)
+            puts "Dropped database."
           end
         end
       end
