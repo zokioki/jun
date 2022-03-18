@@ -54,6 +54,10 @@ module ActiveRecord
       execute("DROP TABLE IF EXISTS #{table_name};")
     end
 
+    def rename_table(old_table_name, new_table_name)
+      execute("ALTER TABLE #{old_table_name} RENAME TO #{new_table_name};")
+    end
+
     def execute(*args)
       ActiveRecord::Base.connection.execute(*args)
     end
