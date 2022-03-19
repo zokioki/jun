@@ -35,6 +35,8 @@ module Jun
         end
 
         def call(env)
+          return welcome_response if @routes.none?
+
           request = Rack::Request.new(env)
 
           if route = find_route(request)
@@ -58,6 +60,18 @@ module Jun
         def draw(&block)
           mapper = Jun::ActionDispatch::Routing::Mapper.new(self)
           mapper.instance_eval(&block)
+        end
+
+        private
+
+        def welcome_response
+          template_filepath = File.expand_path("welcome.html.erb", __dir__)
+          template = Tilt::ERBTemplate.new(template_filepath)
+
+          response = Rack::Response.new
+          response.content_type = "text/html"
+          response.write(template.render)
+          response.finish
         end
       end
     end
