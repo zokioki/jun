@@ -30,7 +30,7 @@ module Jun
             "bin/console",
             "config/application.rb",
             "config/routes.rb",
-            "db/app.db"
+            "db/seeds.rb"
           ]
 
           FileUtils.mkdir_p(app_name)

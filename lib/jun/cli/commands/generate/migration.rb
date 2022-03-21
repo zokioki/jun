@@ -16,6 +16,7 @@ module Jun
             filepath = Jun.root.join("db/migrate/#{filename}")
             file_body = template.render(nil, template_locals)
 
+            filepath.dirname.mkpath
             File.open(filepath, "w") { |f| f.write(file_body) }
             puts "created #{filename}"
           end
