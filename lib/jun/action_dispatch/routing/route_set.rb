@@ -42,7 +42,7 @@ module Jun
           if route = find_route(request)
             route.dispatch(request)
           else
-            [404, { "Content-Type" => "text/plain" }, ["Not found"]]
+            not_found_response
           end
         end
 
@@ -63,6 +63,14 @@ module Jun
         end
 
         private
+
+        def not_found_response
+          response = Rack::Response.new
+          response.content_type = "text/plain"
+          response.status = 404
+          response.write("Not found")
+          response.finish
+        end
 
         def welcome_response
           template_filepath = File.expand_path("welcome.html.erb", __dir__)
