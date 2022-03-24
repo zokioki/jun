@@ -27,7 +27,18 @@ module ActiveRecord
 
     def create_table(table_name, options = {})
       sql = "CREATE TABLE IF NOT EXISTS #{table_name}"
-      column_options = options[:columns] || []
+      column_options = []
+
+      if options[:id] || !options.key?(:id)
+        column_options << {
+          name: :id,
+          type: :integer,
+          primary_key: true,
+          null: false
+        }
+      end
+
+      column_options += options.fetch(:columns, [])
 
       columns_sql = column_options.map do |column|
         next(column) if column.is_a?(String)
