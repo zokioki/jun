@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 require_relative "../connection_adapters/sqlite_adapter"
+require_relative "./persistence"
 
 module ActiveRecord
   class Base
+    include ActiveRecord::Persistence
+
     def initialize(attributes = {})
       @attributes = attributes
+      @new_record = true
     end
 
     def method_missing(name, *args)
@@ -30,7 +34,10 @@ module ActiveRecord
 
     def self.find_by_sql(sql)
       connection.execute(sql).map do |attributes|
-        new(attributes)
+        object = new(attributes)
+        object.instance_variable_set("@new_record", false)
+
+        object
       end
     end
 
