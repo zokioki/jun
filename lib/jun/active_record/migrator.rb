@@ -36,6 +36,8 @@ module ActiveRecord
         migration_verb = up_migration? ? "processed" : "rolled back"
         puts "Migration #{migration_verb} (#{filename})."
       end
+
+      dump_schema! if files_to_process.any?
     end
 
     def up_migration?
@@ -69,6 +71,10 @@ module ActiveRecord
 
     def remove_from_schema_migrations(version)
       ActiveRecord::Base.connection.execute("DELETE FROM schema_migrations WHERE version = #{version};")
+    end
+
+    def dump_schema!
+      Jun::CLI.process_command(["db:schema:dump"])
     end
   end
 end

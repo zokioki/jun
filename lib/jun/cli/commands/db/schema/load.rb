@@ -14,7 +14,26 @@ module Jun
                 system("bundle exec sqlite3 #{db_filepath} < #{schema_filepath}")
               end
 
+              populate_schema_migrations!
+
               puts "Database schema loaded."
+            end
+
+            private
+
+            def populate_schema_migrations!
+              migration_files = Dir.glob(Jun.root.join("db/migrate/*.rb")).sort
+
+              migration_files.each do |filepath|
+                filename = filepath.split("/").last.sub(".rb", "")
+                migration_version = filename.split("_").first
+
+                add_to_schema_migrations(migration_version)
+              end
+            end
+
+            def add_to_schema_migrations(version)
+              ActiveRecord::Base.connection.execute("INSERT INTO schema_migrations (version) VALUES (#{version});")
             end
           end
         end
