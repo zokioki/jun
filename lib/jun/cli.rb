@@ -14,6 +14,8 @@ module Jun
         Jun::CLI::Commands::DB::Rollback,
         Jun::CLI::Commands::DB::Seed,
         Jun::CLI::Commands::DB::Drop,
+        Jun::CLI::Commands::DB::Schema::Dump,
+        Jun::CLI::Commands::DB::Schema::Load,
         Jun::CLI::Commands::Generate::Migration,
         Jun::CLI::Commands::Server,
         Jun::CLI::Commands::Version
