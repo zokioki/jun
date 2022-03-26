@@ -71,10 +71,6 @@ module Jun
 
       private
 
-      def response_rendered?
-        !!@_response_rendered
-      end
-
       def views_path
         dirname = self.class.name.sub(/Controller\z/, "").underscore
         Jun.root.join("app/views/#{dirname}")
