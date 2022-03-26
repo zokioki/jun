@@ -6,7 +6,7 @@ module Jun
       class Server < Base
         def process(*args)
           if Jun.root
-            system("rerun --background -- rackup -p 3001")
+            system("rerun --background -- rackup -p 6291")
           else
             abort("Command \"#{self.class.command_name}\" must be run inside of a Jun app.")
           end
