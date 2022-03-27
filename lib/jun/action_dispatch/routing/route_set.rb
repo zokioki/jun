@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "mapper"
+require_relative "url_helpers"
 
 module Jun
   module ActionDispatch
@@ -49,6 +50,7 @@ module Jun
         def add_route(*args)
           route = Route.new(*args)
           @routes.push(route)
+          define_url_helper(route)
 
           route
         end
@@ -62,7 +64,31 @@ module Jun
           mapper.instance_eval(&block)
         end
 
+        def url_helpers
+          @url_helpers ||= Module.new { extend url_helpers_module }
+        end
+
         private
+
+        def url_helpers_module
+          Jun::ActionDispatch::Routing::UrlHelpers
+        end
+
+        def define_url_helper(route)
+          path_name = "#{route.name}_path"
+
+          url_helpers_module.define_method(path_name) do |*args|
+            options = args.last.is_a?(Hash) ? args.pop : {}
+            path = route.path
+            path_tokens = path.scan(/:\w+/)
+
+            path_tokens.each.with_index do |token, index|
+              path.sub!(token, args[index])
+            end
+
+            path
+          end
+        end
 
         def not_found_response
           response = Rack::Response.new

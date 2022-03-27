@@ -11,6 +11,7 @@ module Jun
       include Jun::ActionController::Callbacks
       include Jun::ActionController::Rendering
       include Jun::ActionController::Redirecting
+      include Jun::ActionDispatch::Routing::UrlHelpers
     end
   end
 end
