@@ -65,7 +65,7 @@ module Jun
         end
 
         def url_helpers
-          @url_helpers ||= Module.new { extend url_helpers_module }
+          @url_helpers ||= Module.new.extend(url_helpers_module)
         end
 
         private
