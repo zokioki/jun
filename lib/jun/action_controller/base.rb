@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'metal'
-require_relative 'callbacks'
+require_relative "metal"
+require_relative "callbacks"
 require_relative "rendering"
 require_relative "redirecting"
 
