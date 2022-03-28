@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "mapper"
-require_relative "url_helpers"
 
 module Jun
   module ActionDispatch
@@ -65,13 +64,13 @@ module Jun
         end
 
         def url_helpers
-          @url_helpers ||= Module.new.extend(url_helpers_module)
+          @url_helpers ||= Module.new.extend(url_helpers_module).include(url_helpers_module)
         end
 
         private
 
         def url_helpers_module
-          Jun::ActionDispatch::Routing::UrlHelpers
+          @url_helpers_module ||= Module.new
         end
 
         def define_url_helper(route)
