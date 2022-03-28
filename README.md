@@ -1,32 +1,35 @@
 # Jun
 
-Jun is a simple, Rails-inspired web application framework. It is built with the goal of learning more about Rails internals. Not meant for production use.
+[![Gem Version](https://badge.fury.io/rb/jun.svg)](https://badge.fury.io/rb/jun)
 
-## Installation
+Jun is a simple, [Rails](https://github.com/rails/rails)-inspired web application framework. This is a rough implementation, built with the goal of learning more about Rails internals. Not meant for production use.
 
-Add this line to your application's Gemfile:
+## Getting Started
 
-```ruby
-gem 'jun'
+Install the gem:
+
+```
+$ gem install jun
 ```
 
-And then execute:
+Then, create a new Jun application:
 
-    $ bundle
+```
+$ jun new my_app
+```
 
-Or install it yourself as:
+Change directory into `my_app` and start up the server:
 
-    $ gem install jun
+```
+$ cd my_app
+$ bin/jun server
+```
 
-## Usage
-
-_TBD_
+Visit `http://localhost:6291` to view your app.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can run `bin/console` for an interactive prompt that will allow you to experiment.
 
 ## License
 

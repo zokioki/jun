@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["zspesic@gmail.com"]
 
   spec.summary = "A simple Ruby web framework."
-  spec.description = "A simple web framework inspired by Rails."
+  spec.description = "A simple web framework inspired by Rails. Not meant for production use."
   spec.homepage = "https://github.com/zokioki/jun"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
