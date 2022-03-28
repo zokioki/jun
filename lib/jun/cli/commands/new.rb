@@ -30,6 +30,7 @@ module Jun
             "app/views/layouts/application.html.erb",
             "bin/console",
             "config/application.rb",
+            "config/environment.rb",
             "config/routes.rb",
             "db/seeds.rb"
           ]
