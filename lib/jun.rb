@@ -3,7 +3,7 @@
 require "pathname"
 
 require_relative "jun/version"
-require_relative "jun/active_support/inflector"
+require_relative "jun/active_support/core_ext"
 require_relative "jun/active_support/dependencies"
 require_relative "jun/action_dispatch/routing/route_set"
 require_relative "jun/active_record/base"
