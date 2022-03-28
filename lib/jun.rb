@@ -25,6 +25,14 @@ module Jun
       project_root_path
     end
 
+    def env
+      ENV["JUN_ENV"] || ENV["RACK_ENV"] || "development"
+    end
+
+    def groups
+      [:default, env]
+    end
+
     private
 
     def project_root_path
