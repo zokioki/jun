@@ -25,7 +25,7 @@ module Jun
 
         def path_regex
           path_string_for_regex = path.gsub(/:\w+/) { |match| "(?<#{match.delete(":")}>\\w+)" }
-          Regexp.new("^#{path_string_for_regex}$")
+          Regexp.new("^#{path_string_for_regex}\/?$")
         end
       end
 
