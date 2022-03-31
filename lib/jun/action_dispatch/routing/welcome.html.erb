@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Welcome to Jun</title>
+    <title>Welcome to Jun!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,12 +20,21 @@
         margin-top: 4rem;
         text-align: center;
       }
+
+      .sunspot {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #fc7e70;
+        margin: 2rem auto;
+      }
     </style>
   </head>
 
   <body>
     <div class="root">
-      <h1>Welcome to Jun</h1>
+      <div class="sunspot"></div>
+      <h1>Welcome to Jun!</h1>
       <small>Jun v<%= Jun::VERSION %> | Ruby v<%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)</small>
     </div>
   </body>
