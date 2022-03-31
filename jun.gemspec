@@ -24,9 +24,9 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "rack"
-  spec.add_runtime_dependency "tilt"
-  spec.add_runtime_dependency "sqlite3"
+  spec.add_runtime_dependency "rack", "~> 2.2"
+  spec.add_runtime_dependency "tilt", "~> 2.0"
+  spec.add_runtime_dependency "sqlite3", "~> 1.4"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "minitest", "~> 5.0"
