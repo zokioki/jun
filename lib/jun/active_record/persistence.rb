@@ -25,11 +25,25 @@ module ActiveRecord
 
     def save
       if new_record?
-        result = self.class.connection.execute("INSERT INTO #{self.class.table_name} (#{@attributes.keys.join(",")}) VALUES (#{@attributes.values.map { |v| "'#{v}'" }.join(",")}) RETURNING *;")
+        result = self.class.connection.execute(
+          <<~SQL
+            INSERT INTO #{self.class.table_name}
+            (#{@attributes.keys.join(",")})
+            VALUES (#{@attributes.values.map { |v| "'#{v}'" }.join(",")})
+            RETURNING *;
+          SQL
+        )
+
         @attributes[self.class.primary_key] = result.first[self.class.primary_key]
         @new_record = false
       else
-        self.class.connection.execute("UPDATE #{self.class.table_name} SET #{@attributes.map { |k, v| "#{k} = #{v}" }.join(",")} WHERE id = #{id};")
+        self.class.connection.execute(
+          <<~SQL
+            UPDATE #{self.class.table_name}
+            SET #{@attributes.map { |k, v| "#{k} = #{v.nil? ? 'NULL' : "'#{v}'"}" }.join(",")}
+            WHERE id = #{id};
+          SQL
+        )
       end
 
       true
