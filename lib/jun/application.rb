@@ -15,6 +15,8 @@ module Jun
       @routes ||= Jun::ActionDispatch::Routing::RouteSet.new
     end
 
+    # Initializes the Jun application.
+    # @return [Boolean] +true+ if successful, +false+ if already initialized.
     def initialize!
       return false if initialized? || Jun.application.nil?
 
@@ -38,6 +40,8 @@ module Jun
       @initialized = true
     end
 
+    # Checks whether the Jun application has been initialized.
+    # @return [Boolean] +true+ if initialized, +false+ if not initialized.
     def initialized?
       !!@initialized
     end

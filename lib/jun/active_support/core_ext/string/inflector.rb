@@ -68,6 +68,11 @@ module Inflector
                   'equipment'
                  ]
 
+  # Returns the plural form of the string.
+  #
+  #   "task".pluralize    #=> "tasks"
+  #   "octopus".pluralize #=> "octopi"
+  #   "fish".singularize  #=> "fish"
   def pluralize
     return self if UNCHANGEABLE.include? self
 
@@ -82,6 +87,11 @@ module Inflector
     self.sub(pattern, replacement)
   end
 
+  # Returns the singular form of the string.
+  #
+  #   "tasks".singularize  #=> "task"
+  #   "octopi".singularize #=> "octopus"
+  #   "fish".singularize   #=> "fish"
   def singularize
     return self if UNCHANGEABLE.include? self
 
@@ -96,6 +106,10 @@ module Inflector
     self.sub(pattern, replacement)
   end
 
+  # Converts a string to under_score format.
+  #
+  #   "HelloThere".underscore #=> "hello_there"
+  #   "Foo::BarBaz".underscore #=> "foo/bar_baz"
   def underscore
     gsub(/::/, '/').
     gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
@@ -104,6 +118,10 @@ module Inflector
     downcase
   end
 
+  # Converts a string to CamelCase format.
+  #
+  #   "hello_there".camelize #=> "HelloThere"
+  #   "foo/bar_baz".camelize #=> "Foo::BarBaz"
   def camelize
     sub(/^[a-z\d]*/) { |match| match.capitalize }.
     gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{$2.capitalize}" }.

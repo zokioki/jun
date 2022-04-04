@@ -8,6 +8,8 @@ module Jun
       attr_accessor :autoload_paths
       self.autoload_paths = []
 
+      # Returns the filepath for a given filename if the file exists
+      # in one of the directories specified in +autoload_paths+.
       def find_file(filename)
         autoload_paths.each do |path|
           filepath = File.join(path, "#{filename}.rb")
