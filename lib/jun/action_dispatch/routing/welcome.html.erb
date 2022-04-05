@@ -21,6 +21,19 @@
         text-align: center;
       }
 
+      .button {
+        background-color: #fc7e70;
+        color: #fff;
+        margin: 0 0.2rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 3px;
+        text-decoration: none;
+      }
+
+      .docs-links {
+        margin: 1.5rem 0;
+      }
+
       .sunspot {
         width: 100px;
         height: 100px;
@@ -35,6 +48,11 @@
     <div class="root">
       <div class="sunspot"></div>
       <h1>Welcome to Jun!</h1>
+      <p>Get started by checking out the guide or reading up on the docs.</p>
+      <div class="docs-links">
+        <a class="button" href="https://www.rubydoc.info/gems/jun/<%= Jun::VERSION %>#getting-started">Getting Started</a>
+        <a class="button" href="https://www.rubydoc.info/gems/jun/<%= Jun::VERSION %>">Documentation</a>
+      </div>
       <small>Jun v<%= Jun::VERSION %> | Ruby v<%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)</small>
     </div>
   </body>
